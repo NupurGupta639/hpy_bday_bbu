@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! 🎉</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="bday.css">
+</head>
+<body>
+	<audio id="bg-music" loop>
+    <!-- Tum baad me apni music file yahan replace kar sakti ho -->
+    <source src="ytmp3free.cc_ehsaas-teri-ulfat-main-jita-har-pal-reels-love-sadlovesong-youtubemp3free.org.mp3" type="audio/mpeg">
+</audio>
+
+    <div id="app">
+        <canvas id="confetti"></canvas>
+
+        <div id="screen-loading" class="screen active">
+            <div class="loader-ring">
+                <span id="countdown-number">3</span>
+            </div>
+            <p style="margin-top: 30px; letter-spacing: 1px;">Crafting your special moment...</p>
+        </div>
+
+        <div id="screen-intro" class="screen">
+            <img src="WhatsApp Image 2025-12-03 at 17.45.34.jpeg" class="bear-img" alt="Cute Bear">
+            <h1>A Cutiepie was born today!<br><small>A special date(21 feb 2026)</small></h1>
+            <p>Yes, it's YOU! A little surprise awaits...</p>
+            <button class="btn" onclick="nextScreen('screen-cake')">Start the surprise 🎁</button>
+        </div>
+
+        <div id="screen-cake" class="screen">
+            <h1>Make a Wish!</h1>
+            <div class="cake-container" onclick="lightCandle()">
+                <div class="candle"></div>
+                <div class="flame"></div>
+                <div class="cake-emoji">🎂</div>
+            </div>
+            <p id="cake-msg">(Tap the cake to decorate!)</p>
+            <button id="cake-btn" class="btn hidden" onclick="nextScreen('screen-balloons')">Cut the Cake 🔪</button>
+        </div>
+
+        <div id="screen-balloons" class="screen">
+            <h1>Pop the Balloons!</h1>
+            <div class="balloon-grid">
+                <div class="balloon" style="background:#ff7675; animation-delay:0s;" onclick="pop(this)">
+                    <span class="balloon-text">You</span>
+                </div>
+                <div class="balloon" style="background:#a29bfe; animation-delay:0.5s;" onclick="pop(this)">
+                    <span class="balloon-text">Are</span>
+                </div>
+                <div class="balloon" style="background:#fd79a8; animation-delay:1s;" onclick="pop(this)">
+                    <span class="balloon-text">A</span>
+                </div>
+                <div class="balloon" style="background:#00b894; animation-delay:1.5s;" onclick="pop(this)">
+                    <span class="balloon-text">Cutie</span>
+                </div>
+            </div>
+            <p>(Pop all 4 balloons)</p>
+            <button id="balloon-btn" class="btn hidden" onclick="nextScreen('screen-gallery')">Next Surprise ➡️</button>
+        </div>
+
+        <div id="screen-gallery" class="screen">
+            
+
+            <h1 style="font-size: 2.2rem;">Mr. Handsome you!!❤️😘</h1>
+            
+            
+            <div class="gallery-container">
+		<div class="photo-card">
+			<img src="Screenshot 2025-12-14 143912.png">
+		</div>
+            </div>
+
+            <button class="btn" onclick="nextScreen('screen-message')">Open My Message 💌</button>
+        </div>
+
+        <div id="screen-message" class="screen">
+            <h1>A Special Message</h1>
+            <div class="message-card">
+                <h2 style="font-family:'Dancing Script'; color:#d63031; margin-bottom:15px;">Happy Birthday!</h2>
+                <div class="message-text">
+                    You deserve all the happiness, love, and smiles in the world today and always. 
+                    <br><br>
+                    You have this special way of making everything around you brighter. I hope your day is filled with laughter!
+                    <br><br>
+                    <strong>I Love You! 😘❤️</strong>
+                </div>
+            </div>
+            <button class="btn" style="margin-top: 30px;" onclick="nextScreen('screen-gift')">Next ➡️</button>
+        </div>
+
+        <div id="screen-gift" class="screen">
+            <h1>One Last Thing...</h1>
+            <div class="gift-box" onclick="openGift()">🎁</div>
+            <p id="gift-lbl">(Tap the gift)</p>
+            
+            <div id="final-content" class="hidden">
+                <h2 style="font-family:'Dancing Script'; font-size: 2.5rem; color:#fd79a8; margin: 20px 0;">Lots of love for you!</h2>
+                <p>Hope you loved your surprise!</p>
+                <button class="btn" onclick="location.reload()">Replay ↺</button>
+            </div>
+        </div>
+    </div>
+	<script src="script.js"></script>
+</body>
+</html>

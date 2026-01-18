@@ -1,0 +1,303 @@
+ /* --- RESET & GLOBAL STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #050505;
+            background-image: radial-gradient(circle at 50% 50%, #2a0845 0%, #000000 100%);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Wrapper to simulate the mobile view from the video on desktop */
+        #app {
+            width: 100%;
+            max-width: 450px;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+            /* subtle glow border for desktop view */
+            box-shadow: 0 0 50px rgba(162, 155, 254, 0.1); 
+        }
+
+        /* --- SCREEN MANAGEMENT --- */
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .screen.active {
+            display: flex;
+            opacity: 1;
+            z-index: 10;
+        }
+
+        /* --- TYPOGRAPHY & BUTTONS --- */
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #ff7675, #a29bfe, #fab1a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(255, 118, 117, 0.3);
+        }
+
+        p {
+            font-size: 1rem;
+            color: #dfe6e9;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff7675, #d63031);
+            border: none;
+            padding: 12px 35px;
+            border-radius: 50px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(214, 48, 49, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 15px;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 10px rgba(214, 48, 49, 0.4);
+        }
+
+        .hidden { display: none !important; }
+
+        /* --- SCREEN 1: COUNTDOWN --- */
+        .loader-ring {
+            width: 150px;
+            height: 150px;
+            border: 5px solid rgba(255,255,255,0.1);
+            border-top: 5px solid #ff7675;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #countdown-number {
+            font-family: 'Fredoka One', cursive;
+            font-size: 4rem;
+            background: linear-gradient(to bottom, #ff7675, #a29bfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* --- SCREEN 2: INTRO (BEAR) --- */
+        .bear-img {
+            width: 160px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        /* --- SCREEN 3: CAKE --- */
+        .cake-container {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin-bottom: 30px;
+            cursor: pointer;
+        }
+        .cake-emoji { font-size: 8rem; z-index: 2; transition: transform 0.3s; }
+        .cake-container:active .cake-emoji { transform: scale(0.9); }
+        
+        .candle {
+            position: absolute; top: 40px; width: 12px; height: 40px;
+            background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff7675 5px, #ff7675 10px);
+            left: 50%; transform: translateX(-50%);
+            display: none; z-index: 1;
+        }
+        .flame {
+            position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+            width: 15px; height: 25px; background: #ff9f43;
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 10px #ff9f43, 0 0 20px yellow;
+            animation: flicker 0.5s infinite alternate;
+            display: none; z-index: 3;
+        }
+        @keyframes flicker { 0% { transform: translateX(-50%) scale(1); opacity: 1; } 100% { transform: translateX(-50%) scale(1.1); opacity: 0.8; } }
+
+        /* --- SCREEN 4: BALLOONS --- */
+        .balloon-grid {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        .balloon {
+            width: 60px; height: 80px;
+            background-color: red;
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+            animation: float 3s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.9);
+            font-weight: bold;
+            box-shadow: inset -5px -5px 10px rgba(0,0,0,0.1);
+        }
+        .balloon::before {
+            content: ''; position: absolute; bottom: -12px; left: 50%;
+            width: 2px; height: 40px; background: rgba(255,255,255,0.5); transform: translateX(-50%);
+        }
+        .balloon.popped {
+            background: transparent !important;
+            box-shadow: none !important;
+            pointer-events: none;
+        }
+        .balloon.popped::before { display: none; }
+        .balloon-text { opacity: 0; transition: 0.3s; font-size: 1.2rem; white-space: nowrap; }
+        .balloon.popped .balloon-text { opacity: 1; transform: translateY(-10px); color: #fff; }
+        
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        /* --- SCREEN 5: SWEET MEMORIES (STACK) --- */
+        .gallery-container {
+            width: 280px;
+            height: 380px;
+            position: relative;
+            margin-bottom: 20px;
+	    border: 5px solid white;
+	    border-radius: 5px
+        }
+        
+        .photo-card {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #fff;
+            padding: 10px 10px 40px 10px; /* Polaroid style */
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: transform 0.6s ease, opacity 0.5s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform-origin: 50% 100%;
+        }
+        
+        .photo-card img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+            pointer-events: none;
+        }
+
+        /* Upload Button styling */
+        .upload-wrapper {
+            position: absolute;
+            top: 15px; right: 15px;
+            z-index: 100;
+        }
+        .upload-icon {
+            font-size: 1.5rem;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(5px);
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+        #file-input { display: none; }
+
+        /* --- SCREEN 6: MESSAGE --- */
+        .message-card {
+            background: 
+        linear-gradient(
+            rgba(255,255,255,0.85),
+            rgba(255,255,255,0.85)
+        ),
+        url("Screenshot 2025-12-14 145548.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    color: #2d3436;
+    width: 85%;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transform: rotate(-2deg);
+        }
+        .message-card::before {
+            content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+            width: 30px; height: 30px; background: #e17055; border-radius: 50%;
+            z-index: 2; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .message-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* --- SCREEN 7: GIFT --- */
+        .gift-box {
+            font-size: 7rem;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            transition: 0.3s;
+        }
+        .gift-box.open { animation: shake 0.5s; }
+        
+        @keyframes shake {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            50% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        /* --- CONFETTI CANVAS --- */
+        #confetti {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 99;
+        }
